@@ -19,7 +19,7 @@ object Practice {
         var b = 1L
         var c = 1L
 
-        (1 until n).forEach {
+        (1 until n).forEach { _ ->
             c = a + b
             a = b
             b = c
