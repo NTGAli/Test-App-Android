@@ -14,5 +14,8 @@ interface ContactDao {
     suspend fun delete(contactItem: ContactItem)
 
     @Query("SELECT * FROM Contacts")
-    fun getAllContacts(): LiveData<ContactItem>
+    fun getAllContacts(): LiveData<List<ContactItem>>
+
+    @Query("SELECT * FROM Contacts WHERE (name LIKE '%' || :query || '%')")
+    fun searchInUsers(query: String): LiveData<List<ContactItem>?>
 }
