@@ -5,5 +5,6 @@ object Constants {
 
     const val BASE_URL= "https://api.unsplash.com"
 
+    const val MAX_LENGTH_NAME = 10
 
 }
