@@ -1,7 +1,8 @@
-package com.ntg.testapp
+package com.ntg.testapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ntg.testapp.R
 
 class MainActivity : AppCompatActivity() {
 

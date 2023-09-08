@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ntg.testapp.data.local.ContactDB
+import com.ntg.testapp.data.local.ContactDao
 import com.ntg.testapp.remote.HeaderInterceptor
 import com.ntg.testapp.remote.LoggingInterceptor
 import com.ntg.testapp.remote.UnsplashApi
+import com.ntg.testapp.repositories.DefaultContactRepository
 import com.ntg.testapp.util.Constants.BASE_URL
 import com.ntg.testapp.util.Constants.CONTACTS_DB
 import dagger.Module
@@ -42,6 +44,14 @@ class AppModule {
     fun provideContactDao(
         database: ContactDB
     ) = database.contactsDao()
+
+    @Singleton
+    @Provides
+    fun provideDefaultContactRepository(
+        dao: ContactDao,
+        api: UnsplashApi
+    ) = DefaultContactRepository(dao, api)
+
 
     @Provides
     @Singleton
