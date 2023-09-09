@@ -7,6 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.ntg.testapp.getOrAwaitValue
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -14,25 +16,29 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import javax.inject.Inject
+import javax.inject.Named
 
-@RunWith(AndroidJUnit4::class)
+
 @SmallTest
 @ExperimentalCoroutinesApi
+@HiltAndroidTest
 class ContactDaoTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var contactDB: ContactDB
+    @Inject
+    @Named("test-app")
+    lateinit var contactDB: ContactDB
     private lateinit var dao: ContactDao
 
     @Before
     fun setup(){
-        contactDB = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            ContactDB::class.java
-        ).allowMainThreadQueries().build()
-
+        hiltRule.inject()
         dao = contactDB.contactsDao()
     }
 
